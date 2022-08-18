@@ -4,6 +4,7 @@
 void run_all_tests() {
     run_test(game_getSignTest, "game_getSignTest");
     run_test(game_addPlayer, "game_addPlayer");
+    system("clear");
 }
 
 void run_test(std::function<bool()> test, std::string test_name)
@@ -19,6 +20,7 @@ void run_test(std::function<bool()> test, std::string test_name)
 
 bool game_getSignTest()
 {
+    freopen("./tests_gameInput.txt", "r", stdin);
     Game testGame;
     char zero = testGame.getSign(0);
     char one = testGame.getSign(1);
@@ -35,13 +37,12 @@ bool game_getSignTest()
 
 bool game_addPlayer()
 {
+    freopen("./tests_gameInput.txt", "r", stdin);
     Game testGame;
-    testGame.addPlayer("player 1");
-    testGame.addPlayer("player 2");
     bool flag = false;
     try {
         testGame.addPlayer("player 3");
-    } catch (const OverflowPlayerAmount&){
+    } catch (const OverflowPlayerAmount&) {
         flag = true;
     }
     return flag;

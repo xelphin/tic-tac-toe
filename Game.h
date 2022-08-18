@@ -21,7 +21,7 @@ class Game {
         * @return
         *      A new instance of Game.
         */
-        Game() = default;
+        Game();
 
         /*
         * Get Sign

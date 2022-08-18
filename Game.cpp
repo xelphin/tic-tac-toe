@@ -1,5 +1,15 @@
 #include "./Game.h"
 
+Game::Game()
+{
+    while(m_initPlayers!=Game::MAX_PLAYERS) {
+        std::cout << "Enter the name of the player" << std::endl;
+        std::string userInput;
+        std::getline(std::cin, userInput);
+        this->addPlayer(userInput);
+    }
+}
+
 char Game::getSign(const int signNumber) const
 {
     switch(signNumber) {

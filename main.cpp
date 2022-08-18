@@ -8,7 +8,8 @@
 #include "./tests.h"
 
 int main() {
-    std::cout << "Tic Tac Toe" << std::endl;
     run_all_tests();
+    std::cout << "Tic Tac Toe" << std::endl;
+    
     return 0;
 }
