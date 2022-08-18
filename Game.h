@@ -9,6 +9,7 @@
 #include <functional>
 #include "./Board.h"
 #include "./Player.h"
+#include "./Exception.h"
 
 class Game {
 
@@ -20,7 +21,7 @@ class Game {
         * @return
         *      A new instance of Game.
         */
-        Game();
+        Game() = default;
 
         /*
         * Get Sign

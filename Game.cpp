@@ -1,6 +1,15 @@
 #include "./Game.h"
 
-int main() {
-    std::cout << "Tic Tac Toe" << std::endl;
-    return 0;
+char Game::getSign(const int signNumber) const
+{
+    switch(signNumber) {
+    case 0:
+        return 'X';
+        break;
+    case 1:
+        return 'O';
+        break;
+    default:
+        throw InvalidSign();
+    }
 }
