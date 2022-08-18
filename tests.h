@@ -15,3 +15,4 @@ void run_test(std::function<bool()> test, std::string test_name);
 
 // GAME TESTS
 bool game_getSignTest();
+bool game_addPlayer();

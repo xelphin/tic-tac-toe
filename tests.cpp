@@ -3,6 +3,7 @@
 
 void run_all_tests() {
     run_test(game_getSignTest, "game_getSignTest");
+    run_test(game_addPlayer, "game_addPlayer");
 }
 
 void run_test(std::function<bool()> test, std::string test_name)
@@ -30,4 +31,18 @@ bool game_getSignTest()
     if (zero == 'X' && one == 'O' && bad)
         return true;
     return false;
+}
+
+bool game_addPlayer()
+{
+    Game testGame;
+    testGame.addPlayer("player 1");
+    testGame.addPlayer("player 2");
+    bool flag = false;
+    try {
+        testGame.addPlayer("player 3");
+    } catch (const OverflowPlayerAmount&){
+        flag = true;
+    }
+    return flag;
 }

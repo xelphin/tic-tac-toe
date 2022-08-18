@@ -11,4 +11,11 @@ public:
     }
 };
 
+class OverflowPlayerAmount : public std::exception {
+public:
+    const char* what() const noexcept override {
+        return "There are enough players, can't add more.";
+    }
+};
+
 #endif // EXCEPTION_H
