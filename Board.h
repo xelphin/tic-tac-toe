@@ -3,6 +3,7 @@
 
 #include <string>
 #include <iostream>
+#include "./Exception.h"
 
 class Board {
 
@@ -24,7 +25,7 @@ class Board {
         * @return
         *      True: Move has been successfully added | False: Failed to add move
         */
-        bool addMoveToBoard(const int sign,const std::string col, const std::string row);
+        void addMoveToBoard(const int sign,const char col, const char row);
 
         /*
         * Check whether move has caused a win
@@ -34,7 +35,7 @@ class Board {
         * @return
         *      True: There is a win from move | False: There is no win from move
         */
-        bool checkWin(const std::string col, const std::string row) const;
+        bool checkWin(const char col, const char row) const;
 
         /*
         * Clear board.
@@ -50,8 +51,8 @@ class Board {
         Board& operator=(const Board& board) = delete;
 
     private:
-        static const int m_empty_slot = -1;
-        static const int m_length = 3;
+        static const int EMPTY_SLOT = -1;
+        static const int LENGTH = 3;
 
         /*
         * Board array
@@ -67,7 +68,7 @@ class Board {
         * @return
         *      Index of col/row inside of m_length*m_length array
         */
-        int translateColRowToSlot(const std::string verSpot, const std::string horSpot) const;
+        int translateColRowToSlot(const char verSpot, const char horSpot) const;
 };
 
 #endif

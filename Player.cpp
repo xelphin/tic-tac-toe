@@ -5,3 +5,4 @@ Player::Player(const std::string name, const int sign) :
     m_sign(sign)
 {}
 
+
