@@ -35,6 +35,13 @@ public:
     }
 };
 
+class IllegalSign : public std::exception {
+public:
+    const char* what() const noexcept override {
+        return "The sign is illegal.";
+    }
+};
+
 class UnavailableSlot : public std::exception {
 public:
     const char* what() const noexcept override {

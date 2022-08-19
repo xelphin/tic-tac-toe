@@ -11,6 +11,8 @@ Board::Board() :
 void Board::addMoveToBoard(const int sign,const char col, const char row)
 {
     int index = Board::translateColRowToSlot(col, row);
+    if(sign == Board::EMPTY_SLOT)
+        throw IllegalSign();
     if(index<0 || index>=LENGTH*LENGTH)
         throw IndexOutOfBounds(index);
     if(m_board[index] != Board::EMPTY_SLOT)
