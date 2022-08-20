@@ -60,8 +60,41 @@ void Board::inputToColRow(const char verSpot, const char horSpot, int &row, int 
 
 int Board::colRowToIndex(const int col, const int row) const
 {
-    int index = col*Board::LENGTH + row;
+    int index = row*Board::LENGTH + col;
     if(index<0 || index>=LENGTH*LENGTH)
         throw IndexOutOfBounds(index);
     return index;
+}
+
+char Board::getSign(const int signNumber) const
+{
+    switch(signNumber) {
+    case 0:
+        return 'X';
+        break;
+    case 1:
+        return 'O';
+        break;
+    case -1:
+        return ' ';
+        break;
+    default:
+        throw InvalidSign();
+    }
+}
+
+std::ostream& operator<<(std::ostream& os, const Board& toPrint)
+{
+    os << " | a | b | c" << std::endl;
+    for(int i=0; i<3; i++) {
+        os << i+1;
+        for(int j=0; j<3; j++) {
+            os << "| ";
+            int signNumber = toPrint.m_board[toPrint.colRowToIndex(i,j)];
+            os << toPrint.getSign(signNumber) << " ";
+        }
+        os << std::endl;
+    }
+    os << std::endl;
+    return os;
 }

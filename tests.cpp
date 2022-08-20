@@ -14,7 +14,7 @@ void printSuccess ();
 
 bool run_all_tests() {
     bool okay = true;
-    run_test(game_getSignTest, "game_getSignTest", okay);
+    run_test(board_getSignTest, "board_getSignTest", okay);
     run_test(game_addPlayer, "game_addPlayer", okay);
     run_test(board_addMoveToBoard_badHorizontal, "board_addMoveToBoard_badHorizontal", okay);
     run_test(board_addMoveToBoard_badVertical, "board_addMoveToBoard_badVertical", okay);
@@ -23,6 +23,7 @@ bool run_all_tests() {
     run_test(board_checkWin_Ver, "board_checkWin_Ver", okay);
     run_test(board_checkWin_DiagLR, "board_checkWin_DiagLR", okay);
     run_test(board_checkWin_DiagRL, "board_checkWin_DiagRL", okay);
+    run_test(board_printBoard, "board_printBoard", okay);
     return okay;
 }
 
@@ -38,15 +39,46 @@ void run_test(std::function<bool()> test, std::string test_name, bool &okay)
     std::cout << std::endl;
 }
 
-bool game_getSignTest()
+bool compareFiles(const std::string &filename1, const std::string &filename2)
+{
+    std::string line1,line2;
+    std::fstream file1(filename1),file2(filename2);
+    if( !file2){
+         std::cerr<<"Error opening file 2" << std::endl;
+         return false;
+    }
+	if(!file1 ){
+         std::cerr << "Error opening file 1" << std::endl;
+         return false;
+    }
+    while(!file1.eof()){ //read file until you reach the end
+        getline(file1,line1);
+        getline(file2,line2);
+        if(!(line1==line2))
+        {
+            return false;
+        }
+    }
+    if(!file2.eof()){
+        return false;
+    }
+    return true;
+}
+
+void deleteTextFile(const std::string &filename)
+{
+    std::remove(filename.c_str());
+}
+
+bool board_getSignTest()
 {
     freopen("./test_files/tests_gameInput.txt", "r", stdin);
-    Game testGame;
-    char zero = testGame.getSign(0);
-    char one = testGame.getSign(1);
+    Board testBoard;
+    char zero = testBoard.getSign(0);
+    char one = testBoard.getSign(1);
     bool bad = false;
     try {
-        bad = testGame.getSign(2);
+        bad = testBoard.getSign(2);
     } catch (const InvalidSign&){
         bad = true;
     }
@@ -199,4 +231,33 @@ bool board_checkWin_DiagRL()
     count += (testBoard.checkWin('b','2'));
     count += (testBoard.checkWin('a','3'));
     return count==7;
+}
+
+bool board_printBoard()
+{
+
+    std::ofstream outfile("board_printBoard_testOut.txt");
+    std::streambuf *coutbuf = std::cout.rdbuf(); //save old buf
+    std::cout.rdbuf(outfile.rdbuf());
+
+    Board testBoard;
+    testBoard.addMoveToBoard(0,'a','1');
+    std::cout << testBoard ; 
+    testBoard.addMoveToBoard(0,'a','2');
+    std::cout << testBoard ; 
+    testBoard.addMoveToBoard(0,'b','1');
+    std::cout << testBoard ; 
+    testBoard.addMoveToBoard(1,'b','3');
+    std::cout << testBoard ; 
+    testBoard.addMoveToBoard(1,'c','3');
+    std::cout << testBoard ; 
+    testBoard.addMoveToBoard(1,'c','1');
+    std::cout << testBoard ;
+
+    bool res = compareFiles("board_printBoard_testOut.txt", "test_files/tests_board_printBoard_output.txt");
+	outfile.close();
+    std::cout.rdbuf(coutbuf);
+    deleteTextFile("board_printBoard_testOut.txt");
+
+    return res;
 }

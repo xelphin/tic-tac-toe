@@ -38,6 +38,15 @@ class Board {
         bool checkWin(const char verSpot, const char horSpot) const;
 
         /*
+        * Get Sign
+        *
+        * @param signNumber - Digit of sign.
+        * @return
+        *      Character of requested sign.
+        */
+        char getSign(const int signNumber) const;
+
+        /*
         * Clear board.
         */
         void clearBoard();

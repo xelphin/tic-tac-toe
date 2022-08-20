@@ -25,14 +25,7 @@ class Game {
         */
         Game();
 
-        /*
-        * Get Sign
-        *
-        * @param signNumber - Digit of sign.
-        * @return
-        *      Character of requested sign.
-        */
-        char getSign(const int signNumber) const;
+
 
         /*
         * Add player to game
