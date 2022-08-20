@@ -19,8 +19,8 @@ bool run_all_tests() {
     run_test(board_addMoveToBoard_badHorizontal, "board_addMoveToBoard_badHorizontal", okay);
     run_test(board_addMoveToBoard_badVertical, "board_addMoveToBoard_badVertical", okay);
     run_test(board_addMoveToBoard, "board_addMoveToBoard", okay);
-    run_test(board_checkWin_Ver, "board_checkWin_Ver", okay);
     run_test(board_checkWin_Hor, "board_checkWin_Hor", okay);
+    run_test(board_checkWin_Ver, "board_checkWin_Ver", okay);
     run_test(board_checkWin_DiagLR, "board_checkWin_DiagLR", okay);
     run_test(board_checkWin_DiagRL, "board_checkWin_DiagRL", okay);
     return okay;

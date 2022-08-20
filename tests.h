@@ -23,11 +23,11 @@ void run_test(std::function<bool()> test, std::string test_name, bool& okay);
 bool game_getSignTest();
 bool game_addPlayer();
 // BOARD TESTS
-bool board_addMoveToBoard_badVertical();
 bool board_addMoveToBoard_badHorizontal();
+bool board_addMoveToBoard_badVertical();
 bool board_addMoveToBoard();
 bool board_checkWin();
-bool board_checkWin_Ver();
 bool board_checkWin_Hor();
+bool board_checkWin_Ver();
 bool board_checkWin_DiagLR();
 bool board_checkWin_DiagRL();
