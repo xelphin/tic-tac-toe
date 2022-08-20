@@ -10,24 +10,58 @@ Board::Board() :
 
 void Board::addMoveToBoard(const int sign,const char col, const char row)
 {
-    int index = Board::translateColRowToSlot(col, row);
+    int index = Board::inputToIndex(col, row);
     if(sign == Board::EMPTY_SLOT)
-        throw IllegalSign();
-    if(index<0 || index>=LENGTH*LENGTH)
-        throw IndexOutOfBounds(index);
+        throw InvalidSign();
     if(m_board[index] != Board::EMPTY_SLOT)
         throw UnavailableSlot();
     m_board[index] = sign;
 }
 
-int Board::translateColRowToSlot(const char verSpot, const char horSpot) const
+bool Board::checkWin(const char verSpot, const char horSpot) const
 {
-    int ver, hor;
-    if (verSpot<'1' || verSpot>'3') 
-        throw InvalidVerticalArgument();
-    if(horSpot<'a' ||horSpot>'c')
+    int col, row;
+    Board::inputToColRow(verSpot, horSpot, col, row);
+    int sign = m_board[colRowToIndex(col, row)];
+    if (sign==Board::EMPTY_SLOT)
+        throw IllegalSlot();
+    if (m_board[colRowToIndex((col+1)%3, row)] == sign 
+        && m_board[colRowToIndex((col+2)%3, row)] == sign) // hor
+        return true;
+    if (m_board[colRowToIndex(col, (row+1)%3)] == sign 
+        && m_board[colRowToIndex(col, (row+2)%3)] == sign) // ver
+        return true;
+    if (m_board[colRowToIndex((col+1)%3, (row+1)%3)] == sign
+        && m_board[colRowToIndex((col+2)%3, (row+2)%3)] == sign) // diag lr
+        return true;
+    if (m_board[colRowToIndex((col+2)%3, (row+1)%3)] == sign 
+        && m_board[colRowToIndex((col+1)%3, (row+2)%3)] == sign) // diag rl
+        return true;
+    return false;
+}
+
+int Board::inputToIndex(const char verSpot, const char horSpot) const
+{
+    int row, col;
+    inputToColRow(verSpot, horSpot, row, col);
+    int index = colRowToIndex(row, col);
+    return index;
+}
+
+void Board::inputToColRow(const char verSpot, const char horSpot, int &row, int &col) const
+{
+    if (horSpot<'1' || horSpot>'3') 
         throw InvalidHorizontalArgument();
-    ver = (int)(verSpot-'1');
-    hor = (int)(horSpot-'a');
-    return ver*Board::LENGTH + hor;
+    if(verSpot<'a' ||verSpot>'c')
+        throw InvalidVerticalArgument();
+    row = (int)(horSpot-'1');
+    col = (int)(verSpot-'a');
+}
+
+int Board::colRowToIndex(const int col, const int row) const
+{
+    int index = col*Board::LENGTH + row;
+    if(index<0 || index>=LENGTH*LENGTH)
+        throw IndexOutOfBounds(index);
+    return index;
 }

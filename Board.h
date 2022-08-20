@@ -30,12 +30,12 @@ class Board {
         /*
         * Check whether move has caused a win
         *
-        * @param col - Column where move took place.
-        * @param row - Row where move took place.
+        * @param verSpot - Column where move took place.
+        * @param horSpot - Row where move took place.
         * @return
         *      True: There is a win from move | False: There is no win from move
         */
-        bool checkWin(const char col, const char row) const;
+        bool checkWin(const char verSpot, const char horSpot) const;
 
         /*
         * Clear board.
@@ -61,14 +61,35 @@ class Board {
         int* m_board;
 
         /*
-        * Translate col/row string into index inside of m_board
+        * Translate verSpot/horSpot string into index inside of m_board
         *
-        * @param col - Column.
-        * @param row - Row.
+        * @param verSpot - Vertical character.
+        * @param horSpot - Horizontal character.
+        * @return
+        *      Index of verSpot/horSpot inside of m_length*m_length array
+        */
+        int inputToIndex(const char verSpot, const char horSpot) const;
+
+        /*
+        * Translate verSpot/horSpot string into row/col 
+        *
+        * @param verSpot - Vertical character.
+        * @param horSpot - Horizontal character.
+        * @param row - Reference to row number.
+        * @param col - Reference to col number.
+        */
+        void inputToColRow(const char verSpot, const char horSpot, int &row, int &col) const;
+
+        /*
+        * Translate row/col into index inside of m_board
+        *
+        * @param col - Chosen col.
+        * @param row - Chosen row.
         * @return
         *      Index of col/row inside of m_length*m_length array
         */
-        int translateColRowToSlot(const char verSpot, const char horSpot) const;
+        int colRowToIndex(const int col, const int row) const;
+
 };
 
 #endif
