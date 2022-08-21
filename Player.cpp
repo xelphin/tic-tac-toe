@@ -6,3 +6,17 @@ Player::Player(const std::string name, const int sign) :
 {}
 
 
+std::string Player::getName()
+{
+    return m_name;
+}
+
+int Player::getSign()
+{
+    return m_sign;
+}
+
+void Player::addWin()
+{
+    m_wins++;
+}

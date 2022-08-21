@@ -15,7 +15,6 @@ void printSuccess ();
 bool run_all_tests() {
     bool okay = true;
     run_test(board_getSignTest, "board_getSignTest", okay);
-    run_test(game_addPlayer, "game_addPlayer", okay);
     run_test(board_addMoveToBoard_badHorizontal, "board_addMoveToBoard_badHorizontal", okay);
     run_test(board_addMoveToBoard_badVertical, "board_addMoveToBoard_badVertical", okay);
     run_test(board_addMoveToBoard, "board_addMoveToBoard", okay);
@@ -24,6 +23,7 @@ bool run_all_tests() {
     run_test(board_checkWin_DiagLR, "board_checkWin_DiagLR", okay);
     run_test(board_checkWin_DiagRL, "board_checkWin_DiagRL", okay);
     run_test(board_printBoard, "board_printBoard", okay);
+    run_test(game_startGame, "game_startGame", okay);
     return okay;
 }
 
@@ -72,7 +72,7 @@ void deleteTextFile(const std::string &filename)
 
 bool board_getSignTest()
 {
-    freopen("./test_files/tests_gameInput.txt", "r", stdin);
+
     Board testBoard;
     char zero = testBoard.getSign(0);
     char one = testBoard.getSign(1);
@@ -87,17 +87,17 @@ bool board_getSignTest()
     return false;
 }
 
-bool game_addPlayer()
-{
-    freopen("./test_files/tests_gameInput.txt", "r", stdin);
-    Game testGame;
-    try {
-        testGame.addPlayer("player 3");
-    } catch (const OverflowPlayerAmount&) {
-        return true;
+
+std::string readFileIntoString(const std::string& path) {
+    std::ifstream input_file(path);
+    if (!input_file.is_open()) {
+        std::cerr << "Could not open the file - '"
+             << path << "'" << std::endl;
+        exit(EXIT_FAILURE);
     }
-    return false;
+    return std::string((std::istreambuf_iterator<char>(input_file)), std::istreambuf_iterator<char>());
 }
+
 
 bool board_addMoveToBoard_badHorizontal()
 {
@@ -259,5 +259,30 @@ bool board_printBoard()
     std::cout.rdbuf(coutbuf);
     deleteTextFile("board_printBoard_testOut.txt");
 
+    return res;
+}
+
+bool game_startGame()
+{
+    std::string filename("./test_files/tests_gameInput_Full.txt");
+    std::string input = readFileIntoString(filename);
+
+    std::istringstream in(input);
+    std::streambuf *cinbuf = std::cin.rdbuf(); //save old buf
+    std::cin.rdbuf(in.rdbuf());
+
+    std::ofstream outfile("game_startGame_testOut.txt");
+    std::streambuf *coutbuf = std::cout.rdbuf(); //save old buf
+    std::cout.rdbuf(outfile.rdbuf());
+
+    Game testGame;
+    testGame.startGame();
+
+    bool res = compareFiles("game_startGame_testOut.txt", "test_files/tests_game_startGame_output.txt");
+	outfile.close();
+    std::cin.rdbuf(cinbuf);
+    std::cout.rdbuf(coutbuf);
+    deleteTextFile("game_startGame_testOut.txt");
+    
     return res;
 }

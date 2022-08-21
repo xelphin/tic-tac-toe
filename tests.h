@@ -24,11 +24,10 @@ bool run_all_tests();
 void run_test(std::function<bool()> test, std::string test_name, bool& okay);
 bool compareFiles(const std::string &filename1, const std::string &filename2);
 void deleteTextFile(const std::string &filename);
+std::string readFileIntoString(const std::string& path);
 
 // --TESTS
 
-// GAME TESTS
-bool game_addPlayer();
 // BOARD TESTS
 bool board_getSignTest();
 bool board_addMoveToBoard_badHorizontal();
@@ -40,3 +39,5 @@ bool board_checkWin_Ver();
 bool board_checkWin_DiagLR();
 bool board_checkWin_DiagRL();
 bool board_printBoard();
+// GAME TESTS
+bool game_startGame();

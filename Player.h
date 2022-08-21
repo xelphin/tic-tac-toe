@@ -21,6 +21,14 @@ class Player {
         void addWin();
 
         /*
+        * Get player name
+        *
+        * @return
+        *      Name of player.
+        */
+        std::string getName();
+
+        /*
         * Get player sign
         *
         * @return
@@ -42,7 +50,7 @@ class Player {
 
         std::string m_name;
         int m_sign;
-        int m_wins;
+        int m_wins = 0;
 };
 
 #endif
