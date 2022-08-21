@@ -16,6 +16,7 @@ void Board::addMoveToBoard(const int sign,const char col, const char row)
     if(m_board[index] != Board::EMPTY_SLOT)
         throw UnavailableSlot();
     m_board[index] = sign;
+    m_moves++;
 }
 
 bool Board::checkWin(const char verSpot, const char horSpot) const
@@ -26,18 +27,27 @@ bool Board::checkWin(const char verSpot, const char horSpot) const
     if (sign==Board::EMPTY_SLOT)
         throw IllegalSlot();
     if (m_board[colRowToIndex((col+1)%3, row)] == sign 
-        && m_board[colRowToIndex((col+2)%3, row)] == sign) // hor
+        && m_board[colRowToIndex((col+2)%3, row)] == sign){ // hor
         return true;
+    }
     if (m_board[colRowToIndex(col, (row+1)%3)] == sign 
-        && m_board[colRowToIndex(col, (row+2)%3)] == sign) // ver
+        && m_board[colRowToIndex(col, (row+2)%3)] == sign){ // ver
         return true;
-    if (m_board[colRowToIndex((col+1)%3, (row+1)%3)] == sign
-        && m_board[colRowToIndex((col+2)%3, (row+2)%3)] == sign) // diag lr
+    }
+    if (col==row && m_board[colRowToIndex((col+1)%3, (row+1)%3)] == sign
+        && m_board[colRowToIndex((col+2)%3, (row+2)%3)] == sign){ // diag lr
         return true;
-    if (m_board[colRowToIndex((col+2)%3, (row+1)%3)] == sign 
-        && m_board[colRowToIndex((col+1)%3, (row+2)%3)] == sign) // diag rl
+    }
+    if (col==2-row && m_board[colRowToIndex((col+2)%3, (row+1)%3)] == sign 
+        && m_board[colRowToIndex((col+1)%3, (row+2)%3)] == sign){ // diag rl
         return true;
+    }
     return false;
+}
+
+bool Board::checkEnd() const
+{
+    return m_moves == LENGTH*LENGTH;
 }
 
 int Board::inputToIndex(const char verSpot, const char horSpot) const

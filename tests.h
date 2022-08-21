@@ -39,5 +39,3 @@ bool board_checkWin_Ver();
 bool board_checkWin_DiagLR();
 bool board_checkWin_DiagRL();
 bool board_printBoard();
-// GAME TESTS
-bool game_startGame();

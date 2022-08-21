@@ -10,8 +10,7 @@
 
 int main() {
     assert(run_all_tests() == true);
-    std::cout << "Tic Tac Toe" << std::endl;
+    system("clear");
     Game game;
-    game.startGame();
     return 0;
 }

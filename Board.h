@@ -38,6 +38,14 @@ class Board {
         bool checkWin(const char verSpot, const char horSpot) const;
 
         /*
+        * Check whether game has reached an end (all slots filled).
+        *
+        * @return
+        *      True: Reached end | False: Hasn't reached end.     
+        */  
+        bool checkEnd() const;
+
+        /*
         * Get Sign
         *
         * @param signNumber - Digit of sign.
@@ -68,6 +76,11 @@ class Board {
         * m_length*m_length sized array that saves the moves the players have made.
         */
         int* m_board;
+
+        /*
+        * Amount of moves that have been taken.
+        */
+        int m_moves = 0;
 
         /*
         * Translate verSpot/horSpot string into index inside of m_board

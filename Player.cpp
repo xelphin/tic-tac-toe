@@ -20,3 +20,9 @@ void Player::addWin()
 {
     m_wins++;
 }
+
+std::ostream& operator<<(std::ostream& os, const Player& toPrint)
+{
+    os << toPrint.m_name << " : " << toPrint.m_wins << std::endl;
+    return os;
+}

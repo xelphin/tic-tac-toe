@@ -26,18 +26,24 @@ class Game {
         Game();
 
         /*
-        * Add player to game
-        *
-        * @param name - Player's name.
+        * Print Title
         */
-        void addPlayer(const std::string& name);
+        void printTitle() const;
 
         /*
-        * Starts a Tic-Tac-Toe game between two players
+        * Print Instructions
         */
-        void startGame();
+        void printInstructions() ;
 
+        /*
+        * Print Menu
+        */
+        void printMenu();
 
+        /*
+        * Print Leader Board
+        */
+        void printLeaderBoard() ;
 
         /*
         * Print game.
@@ -50,19 +56,42 @@ class Game {
     private:
         int m_initPlayers = 0;
         int m_turn = 0;
-        std::vector<std::unique_ptr<Board>> m_boards;
         std::unique_ptr<Player> m_player1;
         std::unique_ptr<Player> m_player2;
+        static const int GAME_MIDDLE = -1;
+        static const int PLAYER1_WON = 0;
+        static const int PLAYER2_WON = 1;
+        static const int TIE = 2;
 
         /*
-        * Play a turn in game.
+        * Add player to game
+        *
+        * @param name - Player's name.
         */
-        bool playTurn(Board& board);
+        void addPlayer(const std::string& name);
+
+        /*
+        * Starts a Tic-Tac-Toe game between two players
+        */
+        void startGame();
+        
+        /*
+        * Play a turn in game.
+        * @param board - Board we are playing on.
+        * @return
+        *      True: Game has ended | False: Game continues
+        */
+        bool playTurn(Board& board, int& finalState);
 
         /*
         * Play a turn in game.
         */
         void getPlayerSpot(Board& board, const char sign, std::string& userInput);
+
+        /*
+        * Redirection.
+        */
+        void redirection();
 };
 
 #endif

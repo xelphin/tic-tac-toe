@@ -23,7 +23,6 @@ bool run_all_tests() {
     run_test(board_checkWin_DiagLR, "board_checkWin_DiagLR", okay);
     run_test(board_checkWin_DiagRL, "board_checkWin_DiagRL", okay);
     run_test(board_printBoard, "board_printBoard", okay);
-    run_test(game_startGame, "game_startGame", okay);
     return okay;
 }
 
@@ -254,35 +253,10 @@ bool board_printBoard()
     testBoard.addMoveToBoard(1,'c','1');
     std::cout << testBoard ;
 
-    bool res = compareFiles("board_printBoard_testOut.txt", "test_files/tests_board_printBoard_output.txt");
+    bool res = compareFiles("board_printBoard_testOut.txt", "./test_files/tests_board_printBoard_output.txt");
 	outfile.close();
     std::cout.rdbuf(coutbuf);
     deleteTextFile("board_printBoard_testOut.txt");
 
-    return res;
-}
-
-bool game_startGame()
-{
-    std::string filename("./test_files/tests_gameInput_Full.txt");
-    std::string input = readFileIntoString(filename);
-
-    std::istringstream in(input);
-    std::streambuf *cinbuf = std::cin.rdbuf(); //save old buf
-    std::cin.rdbuf(in.rdbuf());
-
-    std::ofstream outfile("game_startGame_testOut.txt");
-    std::streambuf *coutbuf = std::cout.rdbuf(); //save old buf
-    std::cout.rdbuf(outfile.rdbuf());
-
-    Game testGame;
-    testGame.startGame();
-
-    bool res = compareFiles("game_startGame_testOut.txt", "test_files/tests_game_startGame_output.txt");
-	outfile.close();
-    std::cin.rdbuf(cinbuf);
-    std::cout.rdbuf(coutbuf);
-    deleteTextFile("game_startGame_testOut.txt");
-    
     return res;
 }
